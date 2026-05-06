@@ -6,7 +6,7 @@ import FascicoloPreview from '../components/FascicoloPreview';
 import ChatbotWidget from '../components/ChatbotWidget';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, FileCheck, Sun, Moon, Menu } from 'lucide-react';
+import { ShieldCheck, Lock, FileCheck, Sun, Moon, Menu, X, Building2, CheckCircle2 } from 'lucide-react';
 
 export default function LandingPage() {
   const { id } = useParams();
@@ -15,6 +15,7 @@ export default function LandingPage() {
   const [showCookies, setShowCookies] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', message: '' });
   const [theme, setTheme] = useState('dark');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -69,19 +70,19 @@ export default function LandingPage() {
     }
   };
 
-  // Dynamic Copy Strategy based on Route ID
+  // Dynamic Copy Strategy based on Route ID - Corporate ToV
   const copyData = {
     'pubblica-amministrazione': {
-      title: <>Blindare il tuo <span className="text-gradient">Ente Locale</span> per le ispezioni ACN</>,
-      subtitle: "Sappiamo quanto la burocrazia possa paralizzare la Pubblica Amministrazione. Ti solleviamo dall'onere della Direttiva NIS2 fornendoti policy e registri pronti per l'ispezione."
+      title: <>Governance del Rischio e Conformità NIS2 per la <span className="text-gradient">Pubblica Amministrazione</span></>,
+      subtitle: "Garantisci la resilienza operativa del tuo Ente. Forniamo policy preconfigurate, registri degli asset e framework di incident response allineati alle direttive AgID e ACN."
     },
     'sanita': {
-      title: <>Metti al sicuro la <span className="text-gradient">Sanità</span> e i dati dei pazienti</>,
-      subtitle: "Le strutture sanitarie sono un bersaglio primario e l'ACN lo sa. Proteggi il tuo ospedale o laboratorio clinico con il sistema chiavi in mano per la conformità NIS2."
+      title: <>Resilienza Operativa e Sicurezza Dati per il <span className="text-gradient">Settore Sanitario</span></>,
+      subtitle: "Proteggi le infrastrutture critiche sanitarie. Una piattaforma integrata per l'adeguamento normativo ISO 27001 e NIS2, progettata per mitigare il rischio cyber e superare gli audit ACN."
     },
     'default': {
-      title: <>Affronta le ispezioni ACN senza stress con <span className="text-gradient">NIS Shield</span></>,
-      subtitle: "Sappiamo quanto la conformità alla direttiva NIS2 possa sembrare un ostacolo insormontabile per i team IT. Ti solleviamo dal peso della burocrazia offrendoti un sistema chiavi in mano con policy già pronte, registri obbligatori e un Command Center intuitivo."
+      title: <>Piattaforma Enterprise per la Conformità <span className="text-gradient">NIS2 e ACN</span></>,
+      subtitle: "Riduciamo la complessità normativa trasformandola in flussi di lavoro automatizzati. Policy predefinite, registri di trattamento e Command Center per una postura di cyber-sicurezza inattaccabile."
     }
   };
 
@@ -95,19 +96,37 @@ export default function LandingPage() {
             <img src="/nis_shield_logo.png" alt="Logo NIS Shield" />
             <span>NIS Shield</span>
           </div>
-          <div className="nav-links">
+          <div className="nav-links desktop-only">
             <a href="#contesto">Il Problema NIS2</a>
-            <a href="#soluzione">La Soluzione</a>
-            <a href="#quiz">Audit Quiz</a>
-            <a href="#target">Per Chi È</a>
+            <a href="#soluzione">Piattaforma</a>
+            <a href="#trust">Trust Center</a>
+            <a href="#target">Soggetti Obbligati</a>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="nav-actions desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <button aria-label="Cambia Tema" onClick={toggleTheme} style={{ background: 'none', border: 'none', color: 'var(--text-main)', cursor: 'pointer', display: 'flex' }}>
               {theme === 'dark' ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
             </button>
-            <a href="#contatti" onClick={scrollToContact} className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Contattaci</a>
+            <a href="#contatti" onClick={scrollToContact} className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Richiedi Demo</a>
           </div>
+          <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu" aria-expanded={isMenuOpen}>
+            {isMenuOpen ? <X size={28} color="var(--text-main)" /> : <Menu size={28} color="var(--text-main)" />}
+          </button>
         </div>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <motion.div className="mobile-menu" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}>
+            <a href="#contesto" onClick={() => setIsMenuOpen(false)}>Il Problema NIS2</a>
+            <a href="#soluzione" onClick={() => setIsMenuOpen(false)}>Piattaforma</a>
+            <a href="#trust" onClick={() => setIsMenuOpen(false)}>Trust Center</a>
+            <a href="#target" onClick={() => setIsMenuOpen(false)}>Soggetti Obbligati</a>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
+              <button onClick={toggleTheme} style={{ background: 'none', border: 'none', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                {theme === 'dark' ? <><Sun size={20} /> Modalità Chiara</> : <><Moon size={20} /> Modalità Scura</>}
+              </button>
+              <a href="#contatti" onClick={(e) => { setIsMenuOpen(false); scrollToContact(e); }} className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Richiedi Demo</a>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       <main id="main-content">
@@ -137,7 +156,7 @@ export default function LandingPage() {
                   <div className="mockup-dot green"></div>
                 </div>
                 <div className="mockup-content">
-                  <img src="/nis_command_center.png" alt="NIS Command Center Interface" />
+                  <img src="/nis_command_center.png" alt="NIS Command Center Interface" loading="lazy" />
                   
                   {activeTab !== 'dashboard' && (
                     <motion.div className="mockup-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -256,6 +275,74 @@ export default function LandingPage() {
 
             <motion.div variants={fadeInUp}>
               <FascicoloPreview />
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Success Stories & Trust Center */}
+        <section id="trust" style={{ background: 'var(--bg-dark)' }}>
+          <motion.div className="container" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
+            <motion.div className="grid" variants={staggerContainer} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+              
+              {/* Trust Center */}
+              <motion.div variants={fadeInUp}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                  <div style={{ background: 'var(--success-bg)', padding: '0.75rem', borderRadius: '12px' }}>
+                    <Lock size={28} color="var(--success)" />
+                  </div>
+                  <h2 style={{ fontSize: '2rem', margin: 0 }}>Trust Center</h2>
+                </div>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: '1.6' }}>
+                  La sicurezza è il fondamento della nostra architettura. Tutti i dati immessi nel Command Center sono trattati secondo i più rigidi standard industriali per garantire confidenzialità e integrità.
+                </p>
+                <ul className="feature-list" style={{ gap: '1.5rem' }}>
+                  <li>
+                    <CheckCircle2 size={24} color="var(--primary-light)" style={{ flexShrink: 0 }} />
+                    <div>
+                      <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--text-main)' }}>Crittografia End-to-End</strong>
+                      <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Dati a riposo cifrati con protocollo AES-256 e in transito via TLS 1.3.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={24} color="var(--primary-light)" style={{ flexShrink: 0 }} />
+                    <div>
+                      <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--text-main)' }}>Conformità GDPR Rigorosa</strong>
+                      <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Infrastruttura cloud europea (Data Residency in UE) con politiche di retention automatiche.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <CheckCircle2 size={24} color="var(--primary-light)" style={{ flexShrink: 0 }} />
+                    <div>
+                      <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--text-main)' }}>Zero-Trust Architecture</strong>
+                      <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Controlli degli accessi basati su RBAC (Role-Based Access Control) per segmentazione privilegi.</span>
+                    </div>
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Success Story */}
+              <motion.div variants={fadeInUp} style={{ background: 'var(--bg-main)', border: '1px solid var(--border)', borderRadius: '24px', padding: '2.5rem', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.05 }}>
+                  <Building2 size={150} />
+                </div>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Azienda Sanitaria Locale</h3>
+                <span style={{ display: 'inline-block', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-light)', padding: '0.25rem 0.75rem', borderRadius: '99px', fontSize: '0.85rem', fontWeight: '500', marginBottom: '2rem' }}>Caso di Successo</span>
+                
+                <p style={{ fontStyle: 'italic', color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '2rem' }}>
+                  "L'adeguamento alla direttiva NIS2 sembrava richiedere un intero team dedicato per mesi. Grazie a NIS Shield, abbiamo mappato gli asset critici e generato il fascicolo per l'ACN in sole 3 settimane, risparmiando oltre 400 ore di lavoro del reparto IT."
+                </p>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '1.5rem', color: 'var(--primary-light)' }}>-70%</strong>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Tempo di deployment</span>
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '1.5rem', color: 'var(--primary-light)' }}>100%</strong>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Copertura controlli</span>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </section>
