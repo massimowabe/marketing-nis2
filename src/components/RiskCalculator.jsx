@@ -42,9 +42,9 @@ export default function RiskCalculator() {
         </div>
       </div>
 
-      <div style={{ background: 'rgba(255, 69, 58, 0.1)', border: '1px solid rgba(255, 69, 58, 0.3)', padding: '1.5rem', borderRadius: '8px', textAlign: 'center' }}>
+      <div style={{ background: 'rgba(255, 69, 58, 0.1)', border: '1px solid rgba(255, 69, 58, 0.3)', padding: '1.5rem', borderRadius: '8px', textAlign: 'center', overflow: 'hidden' }}>
         <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Sanzione Massima Prevista (Art. 34)</p>
-        <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--danger)', textShadow: '0 0 10px rgba(255, 69, 58, 0.5)' }}>
+        <div style={{ fontSize: 'clamp(2rem, 10vw, 3.5rem)', fontWeight: 'bold', color: 'var(--danger)', textShadow: '0 0 10px rgba(255, 69, 58, 0.5)', wordBreak: 'break-word', lineHeight: 1 }}>
           {formatCurrency(fine)}
         </div>
         <p style={{ fontSize: '0.8rem', color: 'var(--danger)', marginTop: '0.5rem', opacity: 0.8 }}>

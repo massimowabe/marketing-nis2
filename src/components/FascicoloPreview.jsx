@@ -40,7 +40,7 @@ export default function FascicoloPreview() {
 
       <div className="preview-grid">
         {/* Sidebar Nav */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderRight: '1px solid var(--border)', paddingRight: '1.5rem' }}>
+        <div className="preview-sidebar">
           {documents.map((doc) => (
             <button
               key={doc.id}

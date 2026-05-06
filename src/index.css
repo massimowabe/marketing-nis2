@@ -241,6 +241,14 @@ section { padding: 8rem 0; }
   min-height: 400px;
 }
 
+.preview-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-right: 1px solid var(--border);
+  padding-right: 1.5rem;
+}
+
 .quiz-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -360,6 +368,12 @@ footer { background: var(--bg-darker); padding: 3rem 0; border-top: 1px solid va
   .preview-grid {
     grid-template-columns: 1fr;
     min-height: auto;
+  }
+  
+  .preview-sidebar {
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 2rem;
   }
   
   .quiz-grid {
