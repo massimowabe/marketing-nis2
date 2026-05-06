@@ -55,13 +55,11 @@ export default function LandingPage() {
     document.getElementById('contatti').scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     setFormState('submitting');
-    saveLead({ ...formData, type: 'contact_form' });
-    setTimeout(() => {
-      setFormState('success');
-    }, 1000);
+    await saveLead({ ...formData, type: 'contact_form' });
+    setFormState('success');
   };
 
   const handleInputChange = (e) => {

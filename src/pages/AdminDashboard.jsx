@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getLeads } from '../utils/db';
+import { getLeads, isMockMode } from '../utils/db';
 import { Link, useNavigate } from 'react-router-dom';
 import { Users, AlertCircle, TrendingUp, LogOut } from 'lucide-react';
 
@@ -13,7 +13,11 @@ export default function AdminDashboard() {
     if (!isAuth) {
       navigate('/login');
     } else {
-      setLeads(getLeads());
+      const fetchLeads = async () => {
+        const data = await getLeads();
+        setLeads(data);
+      };
+      fetchLeads();
     }
   }, [navigate]);
 
@@ -47,6 +51,18 @@ export default function AdminDashboard() {
             </button>
           </div>
         </div>
+
+        {isMockMode && (
+          <div style={{ background: 'rgba(255, 159, 10, 0.1)', border: '1px solid var(--warning)', padding: '1rem 1.5rem', borderRadius: '8px', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <AlertCircle size={24} color="var(--warning)" style={{ flexShrink: 0 }} />
+            <div>
+              <strong style={{ color: 'var(--warning)', display: 'block', marginBottom: '0.25rem' }}>Modalità Sviluppo (Mock Backend) Attiva</strong>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                Attualmente i contatti vengono salvati solo sul tuo browser temporaneo. Inserisci le chiavi di <strong>Supabase</strong> nel file <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px' }}>.env</code> per attivare il database reale e la ricezione delle email tramite <strong>EmailJS</strong>.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* KPIs */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>

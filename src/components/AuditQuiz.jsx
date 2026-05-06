@@ -30,9 +30,9 @@ export default function AuditQuiz() {
     }
   };
 
-  const submitLead = (e) => {
+  const submitLead = async (e) => {
     e.preventDefault();
-    saveLead({ email, type: 'audit_quiz', score, answers });
+    await saveLead({ email, type: 'audit_quiz', score, answers });
     setFinished(true);
   };
 
