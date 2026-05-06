@@ -81,18 +81,20 @@ export default function LandingPage() {
     }
   };
 
-  // Dynamic Copy Strategy based on Route ID - Corporate ToV
   const copyData = {
     'pubblica-amministrazione': {
       title: <>Governance del Rischio e Conformità NIS2 per la <span className="text-gradient">Pubblica Amministrazione</span></>,
+      seoTitle: "Governance del Rischio e Conformità NIS2 per la Pubblica Amministrazione",
       subtitle: "Garantisci la resilienza operativa del tuo Ente. Forniamo policy preconfigurate, registri degli asset e framework di incident response allineati alle direttive AgID e ACN."
     },
     'sanita': {
       title: <>Resilienza Operativa e Sicurezza Dati per il <span className="text-gradient">Settore Sanitario</span></>,
+      seoTitle: "Resilienza Operativa e Sicurezza Dati per il Settore Sanitario",
       subtitle: "Proteggi le infrastrutture critiche sanitarie. Una piattaforma integrata per l'adeguamento normativo ISO 27001 e NIS2, progettata per mitigare il rischio cyber e superare gli audit ACN."
     },
     'default': {
       title: <>Piattaforma Enterprise per la Conformità <span className="text-gradient">NIS2 e ACN</span></>,
+      seoTitle: "Piattaforma Enterprise per la Conformità NIS2 e ACN",
       subtitle: "Riduciamo la complessità normativa trasformandola in flussi di lavoro automatizzati. Policy predefinite, registri di trattamento e Command Center per una postura di cyber-sicurezza inattaccabile."
     }
   };
@@ -102,9 +104,9 @@ export default function LandingPage() {
   return (
     <>
       <Helmet>
-        <title>{copy.title} | NIS Shield Enterprise</title>
+        <title>{copy.seoTitle} | NIS Shield Enterprise</title>
         <meta name="description" content={copy.subtitle} />
-        <meta property="og:title" content={`${copy.title} - NIS Shield`} />
+        <meta property="og:title" content={`${copy.seoTitle} - NIS Shield`} />
         <meta property="og:description" content={copy.subtitle} />
       </Helmet>
 
