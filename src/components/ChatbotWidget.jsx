@@ -90,6 +90,7 @@ export default function ChatbotWidget() {
         </AnimatePresence>
 
         <button 
+          className="pulse-btn"
           onClick={toggleChat}
           style={{
             background: 'var(--primary)',

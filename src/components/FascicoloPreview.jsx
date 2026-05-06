@@ -38,7 +38,7 @@ export default function FascicoloPreview() {
         <p style={{ color: 'var(--text-muted)' }}>Scopri i documenti reali che presenterai all'investigatore ACN, precompilati e pronti all'uso.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr', gap: '2rem', minHeight: '400px' }}>
+      <div className="preview-grid">
         {/* Sidebar Nav */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderRight: '1px solid var(--border)', paddingRight: '1.5rem' }}>
           {documents.map((doc) => (

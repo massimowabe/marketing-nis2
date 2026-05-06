@@ -233,6 +233,19 @@ section { padding: 8rem 0; }
 
 /* Cards & Grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  min-height: 400px;
+}
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -276,6 +289,28 @@ section { padding: 8rem 0; }
 }
 .success-icon { width: 64px; height: 64px; background: rgba(48, 209, 88, 0.1); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
 
+/* Pulse Animation */
+.pulse-btn {
+  animation: pulse-shadow 2s infinite;
+}
+@keyframes pulse-shadow {
+  0% { box-shadow: 0 0 0 0 rgba(10, 132, 255, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(10, 132, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(10, 132, 255, 0); }
+}
+
+/* Scroll Progress Bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform-origin: 0%;
+  z-index: 1000;
+}
+
 /* Cookie Banner */
 .cookie-banner {
   position: fixed;
@@ -317,7 +352,16 @@ footer { background: var(--bg-darker); padding: 3rem 0; border-top: 1px solid va
   .cookie-banner { bottom: 0; left: 0; right: 0; border-radius: 12px 12px 0 0; }
   .section-title { font-size: 2rem; }
   
-  /* Touch optimizations */
+  /* Touch optimizations & Layout Fixes */
   .btn { padding: 1rem 1.5rem; } /* larger touch targets */
   .mockup-tab { padding: 0.75rem 1rem; }
+  
+  .preview-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .quiz-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -5,7 +5,7 @@ import AuditQuiz from '../components/AuditQuiz';
 import FascicoloPreview from '../components/FascicoloPreview';
 import ChatbotWidget from '../components/ChatbotWidget';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { ShieldCheck, Lock, FileCheck, Sun, Moon, Menu, X, Building2, CheckCircle2 } from 'lucide-react';
 
 export default function LandingPage() {
@@ -16,6 +16,14 @@ export default function LandingPage() {
   const [formData, setFormData] = useState({ name: '', email: '', role: '', message: '' });
   const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Scroll Progress Bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -90,6 +98,7 @@ export default function LandingPage() {
 
   return (
     <>
+      <motion.div className="progress-bar" style={{ scaleX }} />
       <nav aria-label="Navigazione Principale">
         <div className="container nav-content">
           <div className="logo">

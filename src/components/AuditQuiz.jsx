@@ -47,7 +47,7 @@ export default function AuditQuiz() {
           <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--border)' }}>
             <p style={{ fontSize: '1.1rem', fontWeight: '500' }}>{questions[step]}</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div className="quiz-grid">
             <button className="btn btn-outline" onClick={() => handleAnswer('yes')} style={{ padding: '1rem', borderColor: 'var(--success)' }}>
               Sì, assolutamente
             </button>
