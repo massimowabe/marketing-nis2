@@ -355,6 +355,7 @@ footer { background: var(--bg-darker); padding: 3rem 0; border-top: 1px solid va
   /* Touch optimizations & Layout Fixes */
   .btn { padding: 1rem 1.5rem; } /* larger touch targets */
   .mockup-tab { padding: 0.75rem 1rem; }
+  .card { padding: 1.5rem; } /* reduce padding to gain space on mobile */
   
   .preview-grid {
     grid-template-columns: 1fr;

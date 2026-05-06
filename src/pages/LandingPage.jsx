@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { saveLead } from '../utils/db';
-import RiskCalculator from '../components/RiskCalculator';
-import AuditQuiz from '../components/AuditQuiz';
-import FascicoloPreview from '../components/FascicoloPreview';
-import ChatbotWidget from '../components/ChatbotWidget';
 import { Link, useParams } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ShieldCheck, Lock, FileCheck, Sun, Moon, Menu, X, Building2, CheckCircle2 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+
+// Lazy loading components for extreme performance
+const RiskCalculator = lazy(() => import('../components/RiskCalculator'));
+const AuditQuiz = lazy(() => import('../components/AuditQuiz'));
+const FascicoloPreview = lazy(() => import('../components/FascicoloPreview'));
+const ChatbotWidget = lazy(() => import('../components/ChatbotWidget'));
 
 export default function LandingPage() {
   const { id } = useParams();
@@ -98,6 +101,13 @@ export default function LandingPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{copy.title} | NIS Shield Enterprise</title>
+        <meta name="description" content={copy.subtitle} />
+        <meta property="og:title" content={`${copy.title} - NIS Shield`} />
+        <meta property="og:description" content={copy.subtitle} />
+      </Helmet>
+
       <motion.div className="progress-bar" style={{ scaleX }} />
       <nav aria-label="Navigazione Principale">
         <div className="container nav-content">
@@ -238,8 +248,10 @@ export default function LandingPage() {
               </motion.div>
             </motion.div>
 
-            <motion.div variants={fadeInUp}>
-              <RiskCalculator />
+            <motion.div variants={fadeInUp} style={{ marginTop: '4rem' }}>
+              <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>Caricamento calcolatore...</div>}>
+                <RiskCalculator />
+              </Suspense>
             </motion.div>
           </motion.div>
         </section>
@@ -283,7 +295,9 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <FascicoloPreview />
+              <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>Caricamento fascicolo...</div>}>
+                <FascicoloPreview />
+              </Suspense>
             </motion.div>
           </motion.div>
         </section>
@@ -364,7 +378,9 @@ export default function LandingPage() {
               <p className="section-subtitle">Rispondi a 4 semplici domande per scoprire se saresti in grado di superare un'ispezione ACN domani mattina.</p>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <AuditQuiz />
+              <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>Caricamento quiz...</div>}>
+                <AuditQuiz />
+              </Suspense>
             </motion.div>
           </motion.div>
         </section>
@@ -381,10 +397,10 @@ export default function LandingPage() {
               <motion.div className="card" variants={fadeInUp}>
                 <h4 style={{ color: 'var(--accent)', fontSize: '1.25rem', marginBottom: '1rem' }}>Soggetti Essenziali (All. I)</h4>
                 <ul className="feature-list" style={{ marginTop: 0, fontSize: '0.9rem' }}>
-                  <li>Energia (Elettricità, Gas, Petrolio)</li>
-                  <li>Trasporti (Aereo, Ferroviario, Navale)</li>
+                  <li>Energia <span style={{ whiteSpace: 'nowrap' }}>(Elettricità, Gas, Petrolio)</span></li>
+                  <li>Trasporti <span style={{ whiteSpace: 'nowrap' }}>(Aereo, Ferroviario, Navale)</span></li>
                   <li>Bancario e Mercati Finanziari</li>
-                  <li>Sanità (Ospedali, Lab, Farmaceutica)</li>
+                  <li>Sanità <span style={{ whiteSpace: 'nowrap' }}>(Ospedali, Lab, Farmaceutica)</span></li>
                   <li>Acqua Potabile e Reflue</li>
                   <li>Infrastrutture Digitali (Cloud, Telco)</li>
                   <li>Pubblica Amministrazione</li>
@@ -396,9 +412,9 @@ export default function LandingPage() {
                 <ul className="feature-list" style={{ marginTop: 0, fontSize: '0.9rem' }}>
                   <li>Servizi Postali e di Corriere</li>
                   <li>Gestione dei Rifiuti</li>
-                  <li>Chimica (Produzione e Distribuzione)</li>
-                  <li>Alimentare (Produzione)</li>
-                  <li>Manifattura (Dispositivi, Veicoli, Elettronica)</li>
+                  <li>Chimica <span style={{ whiteSpace: 'nowrap' }}>(Produzione e Distribuzione)</span></li>
+                  <li>Alimentare <span style={{ whiteSpace: 'nowrap' }}>(Produzione)</span></li>
+                  <li>Manifattura <span style={{ whiteSpace: 'nowrap' }}>(Dispositivi, Veicoli, Elettronica)</span></li>
                   <li>Fornitori di Servizi Digitali</li>
                   <li>Organizzazioni di Ricerca</li>
                 </ul>
@@ -517,7 +533,9 @@ export default function LandingPage() {
         </motion.div>
       )}
 
-      <ChatbotWidget />
+      <Suspense fallback={null}>
+        <ChatbotWidget />
+      </Suspense>
     </>
   );
 }
